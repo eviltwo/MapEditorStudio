@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5820f05b010c9114483a27ba67aef6cb, type: 3}
+  m_Name: SourcePrefabs
+  m_EditorClassIdentifier: 
+  FolderGUID: 12116229d1c8b1f4a891c773b9c1e9bb
+  Tags:
+  - Dummy
+  Items:
+  - GUID: c938a732b3d6ef64889bc3e7f7f2e2e0
+    Asset: {fileID: 9061876865794514847, guid: c938a732b3d6ef64889bc3e7f7f2e2e0, type: 3}
+    Tags: []
+    DisplayName: 
+  - GUID: bc467b58b64c65d408741cbf41db6971
+    Asset: {fileID: 9061876865794514847, guid: bc467b58b64c65d408741cbf41db6971, type: 3}
+    Tags: []
+    DisplayName: 
+  - GUID: 6de842e9f081a584fa6485261ceb4718
+    Asset: {fileID: 9061876865794514847, guid: 6de842e9f081a584fa6485261ceb4718, type: 3}
+    Tags: []
+    DisplayName: 
+  - GUID: cea25b075bc7b554e8c3a737871b6ea6
+    Asset: {fileID: 9061876865794514847, guid: cea25b075bc7b554e8c3a737871b6ea6, type: 3}
+    Tags: []
+    DisplayName: 
+  - GUID: ccba4705ee1bcdc489e4484a6e3dd31a
+    Asset: {fileID: 9061876865794514847, guid: ccba4705ee1bcdc489e4484a6e3dd31a, type: 3}
+    Tags: []
+    DisplayName: 
+  - GUID: 2af4027d0b7853e41b2b976770bcb1fa
+    Asset: {fileID: 9061876865794514847, guid: 2af4027d0b7853e41b2b976770bcb1fa, type: 3}
+    Tags: []
+    DisplayName: 

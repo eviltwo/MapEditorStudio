@@ -1,0 +1,18 @@
+{
+    "name": "MapEditorStudio.MapEditor",
+    "rootNamespace": "MapEditorStudio.MapEditor",
+    "references": [
+        "GUID:9d93bccb7e2e2e741bd4d1ccbbc0c649"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "!DISABLE_MAP_EDITOR"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
