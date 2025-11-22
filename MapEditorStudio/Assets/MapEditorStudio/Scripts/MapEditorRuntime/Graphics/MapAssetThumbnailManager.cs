@@ -17,6 +17,16 @@ namespace MapEditorStudio.MapEditor
             Instance = this;
         }
 
+        private void OnDisable()
+        {
+            foreach (var thumbnail in _thumbnails)
+            {
+                Destroy(thumbnail.Value);
+            }
+
+            _thumbnails.Clear();
+        }
+
         public Texture2D GetThumbnail(MapAssetData data)
         {
             if (_thumbnails.TryGetValue(data.GUID, out var v))
