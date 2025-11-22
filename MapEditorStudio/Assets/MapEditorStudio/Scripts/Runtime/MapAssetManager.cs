@@ -1,20 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace MapEditorStudio
 {
-    public class MapAssetManager
+    public class MapAssetManager : MonoBehaviour
     {
         public static MapAssetManager Instance { get; private set; }
 
+        public MapAssetListBase[] MapAssetLists = System.Array.Empty<MapAssetListBase>();
+
         private readonly Dictionary<string, MapAssetData> _items = new();
 
-        public MapAssetManager(IReadOnlyList<MapAssetListBase> mapAssetLists)
+        private void Awake()
         {
             Instance = this;
 
             var items = new List<MapAssetData>();
-            foreach (var itemList in mapAssetLists)
+            foreach (var itemList in MapAssetLists)
             {
                 itemList.GetItems(items);
             }

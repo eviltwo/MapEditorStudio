@@ -1,6 +1,6 @@
 using System.Linq;
 using MapEditorStudio;
-using MapEditorStudio.MapEditor.Graphics;
+using MapEditorStudio.MapEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +8,6 @@ namespace MapEditorStudioTest
 {
     public class ThmbnailTest : MonoBehaviour
     {
-        public ThumbnailCapture Capture;
-
         public Image Image;
 
         public int Index;
@@ -20,13 +18,8 @@ namespace MapEditorStudioTest
             var item = items.ToList()[Index];
             if (item != null)
             {
-                var sw = System.Diagnostics.Stopwatch.StartNew();
-                var itemInstance = Instantiate(item.Asset);
-                var tex = Capture.Capture(itemInstance);
+                var tex = MapAssetThumbnailManager.Instance.GetThumbnail(item);
                 Image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
-                Destroy(itemInstance);
-                sw.Stop();
-                Debug.Log($"Capture {item.Asset.name} {sw.ElapsedMilliseconds}ms");
             }
         }
     }
