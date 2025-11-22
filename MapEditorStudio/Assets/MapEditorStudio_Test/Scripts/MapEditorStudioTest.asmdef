@@ -1,0 +1,17 @@
+{
+    "name": "MapEditorStudioTest",
+    "rootNamespace": "MapEditorStudioTest",
+    "references": [
+        "GUID:9d93bccb7e2e2e741bd4d1ccbbc0c649",
+        "GUID:42e801620f0aa6849a75122e1098cb06"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
