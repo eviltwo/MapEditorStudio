@@ -30,6 +30,7 @@ namespace MapEditorStudio.MapEditor
         {
             foreach (var item in _items)
             {
+                item.OnEndDisplay();
                 Destroy(item.gameObject);
             }
 
@@ -45,6 +46,7 @@ namespace MapEditorStudio.MapEditor
                 item.gameObject.name = $"{itemNamePrefix}_{data.Asset.name}";
                 item.gameObject.SetActive(true);
                 item.SetData(data);
+                item.OnBeginDisplay();
                 _items.Add(item);
             }
         }
