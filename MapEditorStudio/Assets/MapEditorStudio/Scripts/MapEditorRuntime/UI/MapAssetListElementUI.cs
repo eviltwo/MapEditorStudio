@@ -7,19 +7,19 @@ namespace MapEditorStudio.MapEditor
     {
         public Image ThumbnailImage;
 
-        protected MapAssetData Data;
+        public MapAssetData MapAssetData { get; private set; }
 
         private Sprite _generatedSprite;
 
         public virtual void SetData(MapAssetData data)
         {
-            Data = data;
+            MapAssetData = data;
         }
 
         public virtual void OnBeginDisplay()
         {
             ClearSprite();
-            var tex = MapAssetThumbnailManager.Instance.GetThumbnail(Data);
+            var tex = MapAssetThumbnailManager.Instance.GetThumbnail(MapAssetData);
             _generatedSprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
             ThumbnailImage.sprite = _generatedSprite;
         }
