@@ -2,7 +2,8 @@
     "name": "MapEditorStudio.MapEditor",
     "rootNamespace": "MapEditorStudio.MapEditor",
     "references": [
-        "GUID:9d93bccb7e2e2e741bd4d1ccbbc0c649"
+        "GUID:9d93bccb7e2e2e741bd4d1ccbbc0c649",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
