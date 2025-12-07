@@ -775,6 +775,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 883936158}
+  - component: {fileID: 883936160}
   - component: {fileID: 883936157}
   - component: {fileID: 883936156}
   - component: {fileID: 883936159}
@@ -903,6 +904,25 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &883936160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883936155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4609967dbe6ba54a98bd7bf0a80ee04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 883936158}
+  FollowTarget: {fileID: 1066660733}
+  FollowOffset: {x: 0, y: 1.5, z: 0}
+  PlayerInput: {fileID: 1066660734}
+  LookAction: {fileID: -5630151704836100654, guid: fb1c1a7156aa30744b0f7986875ff689, type: 3}
+  HorizontalSensitivity: 1
+  VerticalSensitivity: 1
 --- !u!1 &901625765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,6 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 1066660732}
+  Camera: {fileID: 883936158}
   PlayerInput: {fileID: 1066660734}
   MoveAction: {fileID: -1680190386980627800, guid: fb1c1a7156aa30744b0f7986875ff689, type: 3}
   MoveSpeed: 100
@@ -1748,7 +1769,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 647708437}
   m_HandleRect: {fileID: 647708436}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.69767445
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1796,9 +1817,9 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 883936158}
   - {fileID: 901625767}
   - {fileID: 1387612825}
   - {fileID: 1358667540}
   - {fileID: 1107505703}
+  - {fileID: 883936158}
   - {fileID: 1066660733}

@@ -7,6 +7,8 @@ namespace MapEditorStudio.MapEditor.Characters
     {
         public CharacterController CharacterController;
 
+        public Transform Camera;
+
         public PlayerInput PlayerInput;
 
         public InputActionReference MoveAction;
@@ -53,6 +55,7 @@ namespace MapEditorStudio.MapEditor.Characters
             }
 
             var moveInputXZ = new Vector3(_moveInput.x, 0, _moveInput.y);
+            moveInputXZ = Quaternion.AngleAxis(Camera.eulerAngles.y, Vector3.up) * moveInputXZ;
             _velocity += moveInputXZ * (MoveSpeed * Time.deltaTime);
             CharacterController.Move(_velocity * Time.deltaTime);
         }
