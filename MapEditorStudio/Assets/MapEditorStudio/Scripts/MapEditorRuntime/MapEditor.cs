@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -25,8 +26,9 @@ namespace MapEditorStudio.MapEditor
         {
             MapAssetListUI.OnCreateItem += OnCreateMapAssetElementUI;
             MapAssetListUI.OnDeleteItem += OnDeleteMapAssetElementUI;
-            var items = MapAssetManager.Instance.GetItemsAll();
+            var items = MapAssetManager.Instance.GetItemsAll().ToList();
             MapAssetListUI.SetData(items);
+            MapEditorEnvironment.Instance.Payload.SelectedAsset = items.FirstOrDefault();
         }
 
         private void OnCreateMapAssetElementUI(MapAssetListElementUI item)
@@ -47,7 +49,7 @@ namespace MapEditorStudio.MapEditor
 
         private void OnSelectMapAsset(MapAssetData asset)
         {
-            Debug.Log($"Select MapAsset : {asset.Asset.name}");
+            MapEditorEnvironment.Instance.Payload.SelectedAsset = asset;
         }
     }
 }

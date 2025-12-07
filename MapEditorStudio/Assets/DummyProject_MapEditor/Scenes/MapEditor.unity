@@ -918,7 +918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 883936158}
   FollowTarget: {fileID: 1066660733}
-  FollowOffset: {x: 0, y: 1.5, z: 0}
+  FollowOffset: {x: 0, y: 0.5, z: 0}
   PlayerInput: {fileID: 1066660734}
   LookAction: {fileID: -5630151704836100654, guid: fb1c1a7156aa30744b0f7986875ff689, type: 3}
   HorizontalSensitivity: 1
@@ -1605,6 +1605,8 @@ GameObject:
   - component: {fileID: 1387612827}
   - component: {fileID: 1387612829}
   - component: {fileID: 1387612828}
+  - component: {fileID: 1387612831}
+  - component: {fileID: 1387612830}
   m_Layer: 0
   m_Name: MapEditorObjects
   m_TagString: Untagged
@@ -1687,6 +1689,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Capture: {fileID: 1387612828}
+--- !u!114 &1387612830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387612824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bbbc785b1d53447a59042ed71ef4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 883936158}
+  RaycastMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  RaycastDistance: 10
+  PlayerInput: {fileID: 1066660734}
+  PrimaryAction: {fileID: 1120369429361536294, guid: fb1c1a7156aa30744b0f7986875ff689, type: 3}
+--- !u!114 &1387612831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387612824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a327966220c6076428ab0fd9e7047520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapEditTool: {fileID: 1387612830}
 --- !u!1 &2019961811
 GameObject:
   m_ObjectHideFlags: 0
