@@ -11,15 +11,41 @@ namespace MapEditorStudio.MapEditor
 
         public string PlayerActionMapName = "Player";
 
+        public string UIActionMapName = "UI";
+
+        public InputActionReference MenuAction;
+
+        public GameObject UIRoot;
+
         public MapAssetListUI MapAssetListUI;
+
+        private bool _uiEnabled;
 
         private void Awake()
         {
-            var map = PlayerInput.actions.FindActionMap(PlayerActionMapName);
-            if (map != null)
+            var playerActionMap = PlayerInput.actions.FindActionMap(PlayerActionMapName);
+            if (playerActionMap != null)
             {
-                map.Enable();
+                playerActionMap.Enable();
             }
+
+            var uiActionMap = PlayerInput.actions.FindActionMap(UIActionMapName);
+            if (uiActionMap != null)
+            {
+                uiActionMap.Enable();
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (PlayerInput == null) return;
+            PlayerInput.onActionTriggered += OnInputActionTriggered;
+        }
+
+        private void OnDisable()
+        {
+            if (PlayerInput == null) return;
+            PlayerInput.onActionTriggered -= OnInputActionTriggered;
         }
 
         private void Start()
@@ -29,6 +55,8 @@ namespace MapEditorStudio.MapEditor
             var items = MapAssetManager.Instance.GetItemsAll().ToList();
             MapAssetListUI.SetData(items);
             MapEditorEnvironment.Instance.Payload.SelectedAsset = items.FirstOrDefault();
+            UpdateUIActive();
+            UpdateInputActive();
         }
 
         private void OnCreateMapAssetElementUI(MapAssetListElementUI item)
@@ -50,6 +78,37 @@ namespace MapEditorStudio.MapEditor
         private void OnSelectMapAsset(MapAssetData asset)
         {
             MapEditorEnvironment.Instance.Payload.SelectedAsset = asset;
+        }
+
+        private void OnInputActionTriggered(InputAction.CallbackContext context)
+        {
+            if (MenuAction != null && context.action.id == MenuAction.action.id && context.started)
+            {
+                _uiEnabled = !_uiEnabled;
+                UpdateUIActive();
+                UpdateInputActive();
+            }
+        }
+
+        private void UpdateUIActive()
+        {
+            UIRoot.SetActive(_uiEnabled);
+        }
+
+        private void UpdateInputActive()
+        {
+            var playerActionMap = PlayerInput.actions.FindActionMap(PlayerActionMapName);
+            if (playerActionMap != null)
+            {
+                if (_uiEnabled)
+                {
+                    playerActionMap.Disable();
+                }
+                else
+                {
+                    playerActionMap.Enable();
+                }
+            }
         }
     }
 }

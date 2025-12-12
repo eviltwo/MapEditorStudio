@@ -1645,6 +1645,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerInput: {fileID: 1066660734}
   PlayerActionMapName: Player
+  UIActionMapName: UI
+  MenuAction: {fileID: -2516679833355293296, guid: fb1c1a7156aa30744b0f7986875ff689, type: 3}
+  UIRoot: {fileID: 968956919}
   MapAssetListUI: {fileID: 1341255624}
 --- !u!114 &1387612827
 MonoBehaviour:
