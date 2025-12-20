@@ -9,6 +9,8 @@ namespace MapEditorStudio.MapEditor
 
         public FirstPersonMapEditTool MapEditTool;
 
+        public ToolSelector ToolSelector;
+
         public MapEditorPayload Payload = new();
 
         private void Awake()
