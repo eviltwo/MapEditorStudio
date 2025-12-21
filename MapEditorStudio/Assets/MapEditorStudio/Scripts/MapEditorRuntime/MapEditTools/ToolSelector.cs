@@ -43,8 +43,6 @@ namespace MapEditorStudio.MapEditor
                 _stackedScrollValue += context.ReadValue<float>();
                 if (Mathf.Abs(_stackedScrollValue) >= TriggerThreshold)
                 {
-                    _stackedScrollValue = 0;
-                    _scrollElapsedTime = 0;
                     if (_stackedScrollValue > 0)
                     {
                         SelectNext();
@@ -53,6 +51,9 @@ namespace MapEditorStudio.MapEditor
                     {
                         SelectPrevious();
                     }
+
+                    _stackedScrollValue = 0;
+                    _scrollElapsedTime = 0;
                 }
             }
         }
@@ -67,7 +68,6 @@ namespace MapEditorStudio.MapEditor
             if (tool == SelectedTool) return;
             SelectedTool = tool;
             OnChangeSelectedTool?.Invoke(tool);
-            Debug.Log($"Selected Tool : {tool}");
         }
 
         public void SelectNext() => Select(ToolTypesUtility.GetNext(SelectedTool));
