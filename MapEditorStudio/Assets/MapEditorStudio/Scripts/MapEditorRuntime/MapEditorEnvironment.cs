@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace MapEditorStudio.MapEditor
 {
+    [DefaultExecutionOrder(-1)]
     public class MapEditorEnvironment : MonoBehaviour
     {
         public static MapEditorEnvironment Instance { get; private set; }
@@ -13,7 +14,7 @@ namespace MapEditorStudio.MapEditor
 
         public MapEditorPayload Payload = new();
 
-        private void Awake()
+        private void OnEnable()
         {
             Instance = this;
         }
