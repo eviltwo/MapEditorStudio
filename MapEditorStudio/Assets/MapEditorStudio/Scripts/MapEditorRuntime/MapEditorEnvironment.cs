@@ -8,9 +8,9 @@ namespace MapEditorStudio.MapEditor
     {
         public static MapEditorEnvironment Instance { get; private set; }
 
-        public FirstPersonMapEditTool MapEditTool;
-
         public ToolSelector ToolSelector;
+
+        public ToolController ToolController;
 
         public MapEditorPayload Payload = new();
 

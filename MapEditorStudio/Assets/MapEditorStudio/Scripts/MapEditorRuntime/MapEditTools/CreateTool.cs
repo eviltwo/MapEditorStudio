@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace MapEditorStudio.MapEditor.MapEditTools
 {
-    public class FirstPersonMapEditTool : MonoBehaviour
+    public class CreateTool : MonoBehaviour, IMapEditTool
     {
         public Transform Camera;
 
@@ -16,20 +16,48 @@ namespace MapEditorStudio.MapEditor.MapEditTools
 
         public InputActionReference PrimaryAction;
 
-        private bool _isPrimaryActionDown;
+        private float _angle;
 
-        private MapAssetPreview _mapAssetPreview = new();
+        public float SnapAngle = 45f;
+
+        public InputActionReference SecondaryAction;
+
+        private readonly MapAssetPreview _mapAssetPreview = new();
+
+        private void Start()
+        {
+            var toolController = MapEditorEnvironment.Instance.ToolController;
+            if (toolController != null)
+            {
+                toolController.RegisterTool(ToolTypes.Create, this);
+            }
+        }
+
+        public void Activate()
+        {
+            enabled = true;
+        }
+
+        public void Deactivate()
+        {
+            enabled = false;
+        }
 
         private void OnEnable()
         {
-            if (PlayerInput == null) return;
-            PlayerInput.onActionTriggered += OnInputActionTriggered;
+            if (PlayerInput != null)
+            {
+                PlayerInput.onActionTriggered += OnInputActionTriggered;
+            }
         }
 
         private void OnDisable()
         {
-            if (PlayerInput == null) return;
-            PlayerInput.onActionTriggered -= OnInputActionTriggered;
+            _mapAssetPreview.Clear();
+            if (PlayerInput != null)
+            {
+                PlayerInput.onActionTriggered -= OnInputActionTriggered;
+            }
         }
 
         private void OnInputActionTriggered(InputAction.CallbackContext context)
@@ -40,9 +68,20 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                 {
                     var selectedMapAsset = MapEditorEnvironment.Instance.Payload.SelectedAsset;
                     if (selectedMapAsset == null) return;
-                    Instantiate(selectedMapAsset.Asset, hit.point, Quaternion.identity);
+                    Instantiate(selectedMapAsset.Asset, hit.point, CalculateRotation());
                 }
             }
+
+            if (SecondaryAction != null && context.action.id == SecondaryAction.action.id && context.started)
+            {
+                _angle += SnapAngle;
+                _mapAssetPreview.SetRotation(CalculateRotation());
+            }
+        }
+
+        private Quaternion CalculateRotation()
+        {
+            return Quaternion.AngleAxis(_angle, Vector3.up);
         }
 
         private void Update()
@@ -101,6 +140,14 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                 if (_mapObject == null) return;
                 _mapObject.transform.position = position;
             }
+
+            public void SetRotation(Quaternion rotation)
+            {
+                if (_mapObject == null) return;
+                _mapObject.transform.rotation = rotation;
+            }
+
+            public Quaternion GetRotation() => _mapObject.transform.rotation;
         }
     }
 }
