@@ -12,7 +12,9 @@ namespace MapEditorStudio.MapEditor
 
         public ToolController ToolController;
 
-        public MapEditorPayload Payload = new();
+        public readonly MapEditorPayload Payload = new();
+
+        public readonly MapEditActionManager ActionManager = new();
 
         private void OnEnable()
         {

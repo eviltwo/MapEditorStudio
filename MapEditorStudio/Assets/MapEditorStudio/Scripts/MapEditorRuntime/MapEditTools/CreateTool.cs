@@ -68,7 +68,11 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                 {
                     var selectedMapAsset = MapEditorEnvironment.Instance.Payload.SelectedAsset;
                     if (selectedMapAsset == null) return;
-                    Instantiate(selectedMapAsset.Asset, hit.point, CalculateRotation());
+                    var actionManager = MapEditorEnvironment.Instance.ActionManager;
+                    if (actionManager != null)
+                    {
+                        actionManager.ExecuteAction(new CreateAction(selectedMapAsset.Asset, hit.point, CalculateRotation(), Vector3.one));
+                    }
                 }
             }
 
