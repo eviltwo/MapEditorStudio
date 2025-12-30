@@ -22,6 +22,22 @@ namespace MapEditorStudio.MapEditor.MapEditTools
 
         public InputActionReference SecondaryAction;
 
+        private bool _isSecondaryActionDown;
+
+        public float SmoothAngleTriggerDistance = 100f;
+
+        private Vector2 _moveDistanceForSmoothAngleTrigger;
+
+        private bool _isSmoothAngle;
+
+        public float SmoothAngleMoveSensitivity = 1f;
+
+        public InputActionReference SmoothAngleMoveAction;
+
+        public bool DisableCameraLookOnSmoothAngle = true;
+
+        public InputActionReference CameraLookAction;
+
         private readonly MapAssetPreview _mapAssetPreview = new();
 
         private void Start()
@@ -62,6 +78,7 @@ namespace MapEditorStudio.MapEditor.MapEditTools
 
         private void OnInputActionTriggered(InputAction.CallbackContext context)
         {
+            // Create object
             if (PrimaryAction != null && context.action.id == PrimaryAction.action.id && context.started)
             {
                 if (Physics.Raycast(Camera.position, Camera.forward, out var hit, RaycastDistance, RaycastMask))
@@ -76,10 +93,58 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                 }
             }
 
-            if (SecondaryAction != null && context.action.id == SecondaryAction.action.id && context.started)
+            // Rotate angle with snap
+            if (SecondaryAction != null && context.action.id == SecondaryAction.action.id)
             {
-                _angle += SnapAngle;
-                _mapAssetPreview.SetRotation(CalculateRotation());
+                _isSecondaryActionDown = context.started || context.performed;
+                if (context.started)
+                {
+                    _isSmoothAngle = false;
+                    _moveDistanceForSmoothAngleTrigger = Vector2.zero;
+                }
+                else if (context.canceled)
+                {
+                    if (!_isSmoothAngle)
+                    {
+                        _angle += SnapAngle;
+                        _mapAssetPreview.SetRotation(CalculateRotation());
+                    }
+
+                    _isSmoothAngle = false;
+                }
+            }
+
+            // Rotate angle smoothly
+            if (_isSecondaryActionDown && SmoothAngleMoveAction != null && context.action.id == SmoothAngleMoveAction.action.id && context.performed)
+            {
+                var inputValue = context.ReadValue<Vector2>();
+                _moveDistanceForSmoothAngleTrigger += inputValue;
+                if (_moveDistanceForSmoothAngleTrigger.sqrMagnitude >= SmoothAngleTriggerDistance * SmoothAngleTriggerDistance)
+                {
+                    _isSmoothAngle = true;
+                }
+
+                if (_isSmoothAngle)
+                {
+                    _angle += inputValue.x * SmoothAngleMoveSensitivity;
+                    _mapAssetPreview.SetRotation(CalculateRotation());
+                }
+            }
+
+            // Switch camera look action active state
+            if (DisableCameraLookOnSmoothAngle && CameraLookAction != null)
+            {
+                var shouldLock = _isSecondaryActionDown;
+                var currentActive = CameraLookAction.action.enabled;
+                var shouldActive = !shouldLock;
+                if (currentActive && !shouldActive)
+                {
+                    CameraLookAction.action.Disable();
+                }
+                else if (!currentActive && shouldActive)
+                {
+                    CameraLookAction.action.Enable();
+                }
             }
         }
 
