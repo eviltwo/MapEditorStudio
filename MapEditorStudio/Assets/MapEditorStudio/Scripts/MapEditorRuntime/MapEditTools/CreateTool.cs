@@ -88,7 +88,7 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                     var actionManager = MapEditorEnvironment.Instance.ActionManager;
                     if (actionManager != null)
                     {
-                        actionManager.ExecuteAction(new CreateAction(selectedMapAsset.Asset, hit.point, CalculateRotation(), Vector3.one));
+                        actionManager.ExecuteAction(new CreateAction(selectedMapAsset.Asset, hit.point, CalculateRotation(_angle), Vector3.one));
                     }
                 }
             }
@@ -106,8 +106,9 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                 {
                     if (!_isSmoothAngle)
                     {
+                        _angle = GetNearestSnappedAngle(CalculateAngle(_mapAssetPreview.GetRotation()), SnapAngle);
                         _angle += SnapAngle;
-                        _mapAssetPreview.SetRotation(CalculateRotation());
+                        _mapAssetPreview.SetRotation(CalculateRotation(_angle));
                     }
 
                     _isSmoothAngle = false;
@@ -127,7 +128,7 @@ namespace MapEditorStudio.MapEditor.MapEditTools
                 if (_isSmoothAngle)
                 {
                     _angle += inputValue.x * SmoothAngleMoveSensitivity;
-                    _mapAssetPreview.SetRotation(CalculateRotation());
+                    _mapAssetPreview.SetRotation(CalculateRotation(_angle));
                 }
             }
 
@@ -148,9 +149,19 @@ namespace MapEditorStudio.MapEditor.MapEditTools
             }
         }
 
-        private Quaternion CalculateRotation()
+        private static float GetNearestSnappedAngle(float angle, float snapAngle)
         {
-            return Quaternion.AngleAxis(_angle, Vector3.up);
+            return Mathf.Round(angle / snapAngle) * snapAngle;
+        }
+
+        private static float CalculateAngle(Quaternion angle)
+        {
+            return angle.eulerAngles.y;
+        }
+
+        private static Quaternion CalculateRotation(float angle)
+        {
+            return Quaternion.AngleAxis(angle, Vector3.up);
         }
 
         private void Update()
