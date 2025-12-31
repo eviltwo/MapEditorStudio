@@ -15,6 +15,8 @@ namespace MapEditorStudio.MapEditor.MapEditTools
 
         private IMapEditTool _lastActiveTool;
 
+        public bool SharedActive { get; private set; }
+
         private void OnEnable()
         {
             var toolSelector = MapEditorEnvironment.Instance.ToolSelector;
@@ -52,6 +54,19 @@ namespace MapEditorStudio.MapEditor.MapEditTools
         public void UnregisterTool(ToolTypes toolType)
         {
             _tools.Remove(toolType);
+        }
+
+        public void SetSharedActive(bool active)
+        {
+            SharedActive = active;
+            if (SharedActive)
+            {
+                _lastActiveTool?.Activate();
+            }
+            else
+            {
+                _lastActiveTool?.Deactivate();
+            }
         }
 
         private void OnChangeSelectedTool(ToolTypes toolType)

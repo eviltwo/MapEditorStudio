@@ -85,9 +85,16 @@ namespace MapEditorStudio.MapEditor
             if (MenuAction != null && context.action.id == MenuAction.action.id && context.started)
             {
                 _uiEnabled = !_uiEnabled;
+                UpdateToolActive();
                 UpdateUIActive();
                 UpdateInputActive();
             }
+        }
+
+        private void UpdateToolActive()
+        {
+            var toolController = MapEditorEnvironment.Instance.ToolController;
+            toolController.SetSharedActive(!_uiEnabled);
         }
 
         private void UpdateUIActive()
